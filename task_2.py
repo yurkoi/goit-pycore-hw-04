@@ -15,6 +15,9 @@ def get_cats_info(path):
     except FileNotFoundError:
         print(f"Файл {path} не знайдено")
         return []
+    except OSError:
+        print(f"Не вдалося прочитати файл {path}")
+        return []
     except ValueError:
         print(f"Файл {path} пошкоджений")
         return []
@@ -22,5 +25,6 @@ def get_cats_info(path):
     return cats
 
 
-cats_info = get_cats_info(Path(__file__).parent / "cats_file.txt")
-print(cats_info)
+if __name__ == "__main__":
+    cats_info = get_cats_info(Path(__file__).parent / "cats_file.txt")
+    print(cats_info)

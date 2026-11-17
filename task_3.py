@@ -7,7 +7,7 @@ from colorama import Fore, init
 def show_directory(path, prefix=" "):
     try:
         items = sorted(path.iterdir())
-    except PermissionError:
+    except OSError:
         print(prefix + "┗ " + Fore.RED + "немає доступу")
         return
 
@@ -15,7 +15,9 @@ def show_directory(path, prefix=" "):
         is_last = index == len(items) - 1
         connector = "┗ " if is_last else "┣ "
 
-        if item.is_dir():
+        if item.is_symlink():
+            print(prefix + connector + Fore.CYAN + "🔗" + item.name)
+        elif item.is_dir():
             print(prefix + connector + Fore.BLUE + "📂" + item.name)
             show_directory(item, prefix + ("  " if is_last else "┃ "))
         else:

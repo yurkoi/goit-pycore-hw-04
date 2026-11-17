@@ -17,6 +17,9 @@ def total_salary(path):
     except FileNotFoundError:
         print(f"Файл {path} не знайдено")
         return 0, 0
+    except OSError:
+        print(f"Не вдалося прочитати файл {path}")
+        return 0, 0
     except ValueError:
         print(f"Файл {path} пошкоджений")
         return 0, 0
@@ -28,5 +31,6 @@ def total_salary(path):
     return total, average
 
 
-total, average = total_salary(Path(__file__).parent / "salary_file.txt")
-print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
+if __name__ == "__main__":
+    total, average = total_salary(Path(__file__).parent / "salary_file.txt")
+    print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")

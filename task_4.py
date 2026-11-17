@@ -45,7 +45,12 @@ def main():
     contacts = {}
     print("Welcome to the assistant bot!")
     while True:
-        user_input = input("Enter a command: ")
+        try:
+            user_input = input("Enter a command: ")
+        except (EOFError, KeyboardInterrupt):
+            print("\nGood bye!")
+            break
+
         if not user_input.strip():
             print("Invalid command.")
             continue
